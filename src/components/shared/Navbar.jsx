@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BsBag, BsSearch } from "react-icons/bs";
+import PrimaryOutlineBtn from "./PrimaryOutlineBtn";
 
 const Navbar = () => {
   const navItems = [
@@ -81,15 +82,18 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         <div className="flex space-x-5 items-center">
+          {/* shopping cart */}
           <Link href="/">
             <BsBag className="text-xl hover:text-primary" />
           </Link>
+          {/* Search btn */}
           <Link href="/">
-            <BsSearch className="text-xl hover:text-primary" />
+            <BsSearch className="mr-2.5 text-xl hover:text-primary" />
           </Link>
-          <a className="ml-2.5 btn btn-primary btn-outline rounded-md border-2 px-8 py-4">
-            Appointment
-          </a>
+          {/* Appointment Action Btn */}
+          <Link href="/">
+            <PrimaryOutlineBtn text="Appointment" />
+          </Link>
         </div>
       </div>
     </div>
