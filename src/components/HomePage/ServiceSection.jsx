@@ -4,7 +4,6 @@ import ServiceCard from "../cards/ServiceCard";
 import SectionHeading from "../shared/SectionHeading";
 
 const ServiceSection = () => {
-  console.log(services);
   return (
     <div className="lg:mt-32 text-center">
       {/* Section Heading */}
