@@ -4,7 +4,7 @@ import PrimaryBtn from "../shared/PrimaryBtn";
 
 const AboutSection = () => {
   return (
-    <div className="mt-32 grid grid-cols-1 lg:grid-cols-2 lg:gap-20">
+    <div className="lg:mt-32 grid grid-cols-1 lg:grid-cols-2 lg:gap-20">
       <div className="relative">
         <Image
           src="/assets/images/about_us/person.jpg"
