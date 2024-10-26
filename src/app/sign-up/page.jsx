@@ -51,7 +51,7 @@ const SignUpPage = () => {
         </form>
 
         {/* Social SignUp Buttons */}
-        <SocialSignUpSection text="Already have an account? " link="Sign In" />
+        <SocialSignUpSection text="Already have an account? " link="sign-in" linkText="Sign In" />
       </div>
     </div>
   );

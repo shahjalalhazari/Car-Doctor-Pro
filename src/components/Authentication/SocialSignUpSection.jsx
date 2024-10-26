@@ -2,7 +2,7 @@ import Link from "next/link";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
-const SocialSignUpSection = ({ text, link }) => {
+const SocialSignUpSection = ({ text, link, linkText }) => {
   return (
     <div className="text-center mt-7 space-y-7">
       <p className="text-lg font-medium text-secondary">Or Sign Up with</p>
@@ -20,8 +20,8 @@ const SocialSignUpSection = ({ text, link }) => {
       <p className="text-lg text-secondary">
         {text}
         {/* REPLACE */}
-        <Link href="" className="text-lg font-bold text-primary">
-          {link}
+        <Link href={link} className="text-lg font-bold text-primary">
+          {linkText}
         </Link>
       </p>
     </div>
