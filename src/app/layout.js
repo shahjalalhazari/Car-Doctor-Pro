@@ -29,10 +29,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="carDoctorTheme" className={inter.className}>
       <body
-        className={`lg:mt-[50px] ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`lg:mt-10 ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar/>
-        {children}
+        <div className="lg:px-[150px]">
+          <Navbar/>
+          {children}
+        </div>
         <Footer/>
       </body>
     </html>

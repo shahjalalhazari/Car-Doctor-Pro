@@ -1,10 +1,12 @@
 import React from "react";
 import Banner from "./Banner";
+import AboutSection from "./AboutSection";
 
 const HomePage = () => {
   return (
-    <div className="mx-[150px] mt-[50px]">
+    <div className="mt-10">
       <Banner />
+      <AboutSection />
     </div>
   );
 };
