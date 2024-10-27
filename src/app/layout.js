@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
+import AuthProviders from "@/providers/AuthProviders";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,14 +29,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="carDoctorTheme" className={inter.className}>
-      <body
+        <body
         className={`lg:mt-10 ${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="lg:px-[150px]">
-          <Navbar/>
-          {children}
-        </div>
-        <Footer/>
+        >
+        <AuthProviders>
+          <div className="lg:px-[150px]">
+            <Navbar/>
+            {children}
+          </div>
+          <Footer/>
+      </AuthProviders>
       </body>
     </html>
   );

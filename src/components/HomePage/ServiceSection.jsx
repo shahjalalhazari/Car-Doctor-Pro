@@ -11,7 +11,7 @@ const ServiceSection = () => {
         title="Service"
         headline="Our Service Area"
         description="There are many variations of passages of Lorem Ipsum available, but
-          the majority have suffered alteration <br /> in some form, by injected
+          the majority have suffered alteration in some form, by injected
           humour, or randomized words which don't look even slightly
           believable."
       />

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BsBag, BsSearch } from "react-icons/bs";
 import PrimaryOutlineBtn from "./PrimaryOutlineBtn";
+import PrimaryBtn from "./PrimaryBtn";
 
 const Navbar = () => {
   const navItems = [
@@ -27,8 +28,8 @@ const Navbar = () => {
     },
   ];
   return (
-    <div className="navbar bg-base-100 font-semibold">
-      <div className="navbar-start">
+    <div className="flex justify-between items-center font-semibold">
+      <div className="">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
@@ -73,28 +74,32 @@ const Navbar = () => {
           />
         </Link>
       </div>
-      <div className="navbar-center hidden lg:flex gap-x-10">
+      <div className="hidden lg:flex gap-x-8">
         {navItems.map((item) => (
           <Link className="hover:text-primary" key={item.path} href={item.path}>
             {item.title}
           </Link>
         ))}
       </div>
-      <div className="navbar-end">
-        <div className="flex space-x-5 items-center">
-          {/* shopping cart */}
-          <Link href="/">
-            <BsBag className="text-xl hover:text-primary" />
-          </Link>
-          {/* Search btn */}
-          <Link href="/">
-            <BsSearch className="mr-2.5 text-xl hover:text-primary" />
-          </Link>
-          {/* Appointment Action Btn */}
-          <Link href="/">
-            <PrimaryOutlineBtn text="Appointment" />
-          </Link>
-        </div>
+      <div className="flex space-x-5 items-center">
+        {/* shopping cart */}
+        <Link href="/">
+          {/* REPLACE */}
+          <BsBag className="text-xl hover:text-primary" />
+        </Link>
+        {/* Search btn */}
+        <Link href="/">
+          {/* REPLACE */}
+          <BsSearch className="mr-2.5 text-xl hover:text-primary" />
+        </Link>
+        {/* Appointment Action Btn */}
+        <Link href="/">
+          {/* REPLACE */}
+          <PrimaryOutlineBtn text="Appointment" />
+        </Link>
+        <Link href="/sign-in">
+          <PrimaryBtn text="Sign In" />
+        </Link>
       </div>
     </div>
   );
