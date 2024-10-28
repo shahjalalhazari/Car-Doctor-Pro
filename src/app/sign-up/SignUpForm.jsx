@@ -25,8 +25,20 @@ const SignUpForm = () => {
 
     // Simulate form submission and reset form
     const newUser = { name, email, password };
-    console.log("New User:", newUser);
-    form.reset();
+
+    // send POST request to server with user details
+    const resp = await fetch("http://localhost:3000/sign-up/api", {
+      method: "POST",
+      body: JSON.stringify(newUser),
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    console.log(resp);
+
+    if (resp.status === 201) {
+      form.reset();
+    }
   };
 
   return (
