@@ -6,9 +6,11 @@ export const connectDB = async () => {
     if (db) return db;
 
     try {
-        // const uri = process.env.NEXT_PUBLIC_MONGODB_URI;
-        const uri = `mongodb+srv://${NEXT_PUBLIC_MONGODB_USERNAME}:${NEXT_PUBLIC_MONGODB_PASSWORD}@cluster0.cp5mulo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+        const username = process.env.NEXT_MONGODB_USERNAME;
+        const password = process.env.NEXT_MONGODB_PASSWORD;
+        const uri = `mongodb+srv://${username}:${password}@cluster0.cp5mulo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
+        // create client
         const client = new MongoClient(uri, {
             serverApi: {
                 version: ServerApiVersion.v1,
@@ -16,10 +18,9 @@ export const connectDB = async () => {
                 deprecationErrors: true,
             }
         });
-
-        db = client.db("car-doctor-pro");
+        db = client.db("CarDoctorProDB")
         return db;
     } catch (error) {
-        
+        console.log(error);
     }
 }

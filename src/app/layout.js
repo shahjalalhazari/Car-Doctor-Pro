@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="carDoctorTheme" className={inter.className}>
         <body
-        className={`lg:mt-10 ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`lg:mt-8 ${geistSans.variable} ${geistMono.variable} antialiased`}
         >
         <AuthProviders>
           <div className="lg:px-[150px]">
