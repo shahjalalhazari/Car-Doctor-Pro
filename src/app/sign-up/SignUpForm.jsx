@@ -22,8 +22,6 @@ const SignUpForm = () => {
       setError("Passwords do not match.");
       return;
     }
-
-    // Simulate form submission and reset form
     const newUser = { name, email, password };
 
     // send POST request to server with user details

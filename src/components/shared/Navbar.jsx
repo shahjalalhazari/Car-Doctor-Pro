@@ -1,32 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { BsBag, BsSearch } from "react-icons/bs";
+import { signOut, useSession } from "next-auth/react";
+import { BsBag, BsSearch, BsCaretDownFill } from "react-icons/bs";
 import PrimaryOutlineBtn from "./PrimaryOutlineBtn";
 import PrimaryBtn from "./PrimaryBtn";
 
 const Navbar = () => {
-  const navItems = [
-    {
-      title: "Home",
-      path: "/",
-    },
-    {
-      title: "About",
-      path: "/about",
-    },
-    {
-      title: "Services",
-      path: "/services",
-    },
-    {
-      title: "Blog",
-      path: "/blog",
-    },
-    {
-      title: "Contact",
-      path: "/contact",
-    },
-  ];
+  const session = useSession();
+  // console.log(session);
+
   return (
     <div className="flex justify-between items-center font-semibold">
       <div className="">
@@ -87,22 +71,73 @@ const Navbar = () => {
           {/* REPLACE */}
           <BsBag className="text-xl hover:text-primary" />
         </Link>
+
         {/* Search btn */}
         <Link href="/">
           {/* REPLACE */}
           <BsSearch className="mr-2.5 text-xl hover:text-primary" />
         </Link>
+
         {/* Appointment Action Btn */}
         <Link href="/">
           {/* REPLACE */}
           <PrimaryOutlineBtn text="Appointment" />
         </Link>
-        <Link href="/sign-in">
-          <PrimaryBtn text="Sign In" />
-        </Link>
+
+        {session.status === "authenticated" ? (
+          <div className="dropdown dropdown-hover dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="px-8 py-4
+            rounded-md bg-primary text-white flex items-center gap-2"
+            >
+              {session.data.user.name} <BsCaretDownFill />
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu bg-base-100 z-[1] w-52 border-primary border p-2 shadow"
+            >
+              <li>
+                {/* REPLACE */}
+                <Link href="/">Profile</Link>
+              </li>
+              <li>
+                <button onClick={() => signOut()}>Sign Out</button>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <Link href="/sign-in">
+            <PrimaryBtn text="Sign In" />
+          </Link>
+        )}
       </div>
     </div>
   );
 };
+
+const navItems = [
+  {
+    title: "Home",
+    path: "/",
+  },
+  {
+    title: "About",
+    path: "/about",
+  },
+  {
+    title: "Services",
+    path: "/services",
+  },
+  {
+    title: "Blog",
+    path: "/blog",
+  },
+  {
+    title: "Contact",
+    path: "/contact",
+  },
+];
 
 export default Navbar;

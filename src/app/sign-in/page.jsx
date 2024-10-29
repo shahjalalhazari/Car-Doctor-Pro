@@ -1,8 +1,6 @@
-import InputField from "@/components/Authentication/InputField";
-import SocialSignUpSection from "@/components/Authentication/SocialSignUpSection";
-import FullWidthBtn from "@/components/shared/FullWidthBtn";
 import Image from "next/image";
-import React from "react";
+import SocialSignUpSection from "@/components/Authentication/SocialSignUpSection";
+import SignInForm from "./SignInForm";
 
 const SignInPage = () => {
   return (
@@ -18,24 +16,8 @@ const SignInPage = () => {
         <h3 className="font-semibold text-secondary text-[40px] text-center">
           Sign In
         </h3>
-        <form action="" className="mt-10 space-y-6">
-          {/* Email Field */}
-          <InputField
-            label="Email"
-            name="email"
-            type="email"
-            placeholder="Your Email"
-          />
-          {/* Password Field */}
-          <InputField
-            label="Password"
-            name="password"
-            type="password"
-            placeholder="Your Password"
-          />
-          {/* Submit Button */}
-          <FullWidthBtn text="Sign In" />
-        </form>
+        {/* SignIn Form */}
+        <SignInForm/>
 
         {/* Social SignUp Buttons */}
         <SocialSignUpSection
