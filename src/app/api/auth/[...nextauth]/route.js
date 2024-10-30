@@ -1,7 +1,8 @@
-import { connectDB } from "@/lib/connectDB";
-import bcrypt from 'bcrypt';
 import NextAuth from "next-auth/next";
+import bcrypt from 'bcrypt';
 import CredentialsProviders from "next-auth/providers/credentials"
+import GoogleProvider from "next-auth/providers/google"
+import { connectDB } from "@/lib/connectDB";
 
 const handler = NextAuth({
     session: {
@@ -41,7 +42,13 @@ const handler = NextAuth({
                 // finally return the user.
                 return currentUser;
             }
-        })
+        }),
+
+        // sign in/up with google account
+        GoogleProvider({
+            clientId: process.env.NEXT_AUTH_GOOGLE_CLIENT_ID,
+            clientSecret: process.env.NEXT_AUTH_GOOGLE_CLIENT_SECRET
+        }),
     ],
     pages: {
         signIn: "/sign-in"
