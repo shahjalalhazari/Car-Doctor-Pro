@@ -12,9 +12,9 @@ const SocialSignUpSection = ({ text, link, linkText }) => {
   const socialSignUpHandler = async (provider) => {
     const resp = await signIn(provider);
     console.log(resp);
-    if (resp.status === "authenticated") {
-      redirect.push("/");
-    }
+    // if (resp.status === "authenticated") {
+    //   redirect.push("/");
+    // }
   };
   return (
     <div className="text-center mt-7 space-y-7">

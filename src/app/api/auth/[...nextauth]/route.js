@@ -2,6 +2,8 @@ import NextAuth from "next-auth/next";
 import bcrypt from 'bcrypt';
 import CredentialsProviders from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
+import FacebookProvider from "next-auth/providers/facebook"
+import LinkedInProvider from "next-auth/providers/linkedin"
 import { connectDB } from "@/lib/connectDB";
 
 const handler = NextAuth({
@@ -49,6 +51,18 @@ const handler = NextAuth({
             clientId: process.env.NEXT_AUTH_GOOGLE_CLIENT_ID,
             clientSecret: process.env.NEXT_AUTH_GOOGLE_CLIENT_SECRET
         }),
+
+        // sign in with facebook
+        FacebookProvider({
+            clientId: process.env.NEXT_AUTH_FACEBOOK_CLIENT_ID,
+            clientSecret: process.env.NEXT_AUTH_FACEBOOK_CLIENT_SECRET
+        }),
+
+        // sign in with Linkedin
+        LinkedInProvider({
+            clientId: process.env.NEXT_AUTH_LINKEDIN_CLIENT_ID,
+            clientSecret: process.env.NEXT_AUTH_LINKEDIN_CLIENT_SECRET
+        })
     ],
     pages: {
         signIn: "/sign-in"
