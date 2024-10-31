@@ -60,7 +60,7 @@ const handler = NextAuth({
             clientSecret: process.env.NEXT_AUTH_LINKEDIN_CLIENT_SECRET,
             authorization: {
                 params: {
-                    scope: "r_liteprofile r_emailaddress"
+                    scope: "openid profile email"
                 },
             },
         })
