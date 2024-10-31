@@ -1,21 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const SocialSignUpSection = ({ text, link, linkText }) => {
-  const redirect = useRouter();
+  const router = useRouter();
+  const { status } = useSession();
 
-  const socialSignUpHandler = async (provider) => {
-    const resp = await signIn(provider);
-    console.log(resp);
-    // if (resp.status === "authenticated") {
-    //   redirect.push("/");
-    // }
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [router, status]);
+
+  const socialSignUpHandler = (provider) => {
+    signIn(provider, { redirect: false });
   };
+
   return (
     <div className="text-center mt-7 space-y-7">
       <p className="text-lg font-medium text-secondary">Or Sign Up with</p>

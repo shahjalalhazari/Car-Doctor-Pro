@@ -22,21 +22,17 @@ const handler = NextAuth({
                 const { email, password } = credentials;
 
                 // check is empty email & password or not
-                if (!email || !password) {
-                    return null;
-                }
+                if (!email || !password) return null;
 
                 // connect to db and get the current user details from DB.
                 const db = await connectDB();
                 const currentUser = await db.collection("users").findOne({email});
 
                 // if user not found from db
-                if (!currentUser) {
-                    return null;
-                }
+                if (!currentUser) return null;
 
                 // match submitted login password with current user password
-                const matchPassword = bcrypt.compare(password, currentUser.password);
+                const matchPassword = await bcrypt.compare(password, currentUser.password);
                 if (!matchPassword) {
                     return null;
                 }
@@ -61,11 +57,48 @@ const handler = NextAuth({
         // sign in with Linkedin
         LinkedInProvider({
             clientId: process.env.NEXT_AUTH_LINKEDIN_CLIENT_ID,
-            clientSecret: process.env.NEXT_AUTH_LINKEDIN_CLIENT_SECRET
+            clientSecret: process.env.NEXT_AUTH_LINKEDIN_CLIENT_SECRET,
+            authorization: {
+                params: {
+                    scope: "r_liteprofile r_emailaddress"
+                },
+            },
         })
     ],
     pages: {
         signIn: "/sign-in"
+    },
+
+    callbacks: {
+        async signIn({ user, account }) {
+            const {email} = user;
+
+            if (["google", "facebook", "linkedin"].includes(account?.provider)){
+                try {
+                    const db = await connectDB();
+                    const userCollection = db.collection("users");
+                    const userExists = await userCollection.findOne({email});
+                    if (!userExists) {
+                        await userCollection.insertOne(user);
+                        return user;
+                    } else {
+                        return user;
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+            } else {
+                return user;
+            }
+        },
+
+        // async jwt({ token, account, profile }) {
+        //     if (account?.provider === "linkedin") {
+        //     token.email = profile.email;  // Save LinkedIn email to token
+        //     token.name = profile.name;    // Save LinkedIn name to token
+        //     }
+        //     return token;
+        // }
     }
 });
 
