@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { BsArrowRightShort } from "react-icons/bs";
 
-const ServiceHorizentalCard = ({ service }) => {
+const ServiceHorizontalCard = ({ service }) => {
   const { title, _id } = service;
   return (
     <Link href={`/services/${_id}`}>
@@ -13,4 +13,4 @@ const ServiceHorizentalCard = ({ service }) => {
   );
 };
 
-export default ServiceHorizentalCard;
+export default ServiceHorizontalCard;

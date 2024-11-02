@@ -1,13 +1,13 @@
 import { getServiceDetails } from "@/lib/getService";
-import { getServices } from "@/lib/getService";
+
 import BannerSection from "@/components/ServiceDetailsPage/BannerSection";
 import DetailsSection from "@/components/ServiceDetailsPage/DetailsSection";
-import ServiceHorizentalCard from "@/components/cards/ServiceHorizentalCard";
+import DownloadSection from "@/components/ServiceDetailsPage/DownloadSection";
+import ServicesList from "@/components/ServiceDetailsPage/ServicesList";
 
 const ServiceDetailsPage = async ({ params }) => {
   const { service } = await getServiceDetails(params.id);
-  const { description, _id } = service;
-  const { services } = await getServices();
+  const { description} = service;
 
   return (
     <div className="lg:mt-10">
@@ -73,17 +73,12 @@ const ServiceDetailsPage = async ({ params }) => {
             ></iframe>
           </div>
         </div>
-        <div className="">
+        <div className="aside">
           {/* All Services List */}
-          <div className="bg-[#f3f3f3] p-10">
-            <h4 className="font-bold text-2xl text-secondary">Services</h4>
-            <div className="space-y-5">
-              {services &&
-                services?.map((service) => (
-                  <ServiceHorizentalCard service={service} key={service._id} />
-                ))}
-            </div>
-          </div>
+          <ServicesList/>
+
+          {/* Download List Section */}
+          <DownloadSection />
         </div>
       </div>
     </div>
