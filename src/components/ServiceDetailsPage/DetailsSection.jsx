@@ -15,7 +15,7 @@ const DetailsSection = ({ service }) => {
       />
 
       {/* details */}
-      <h3 className="text-4xl font-bold mt-12">{title}</h3>
+      <h3 className="text-4xl font-bold mt-12 text-primary">{title}</h3>
       <p className="text-paragraph text-justify mt-7">{description}</p>
 
       {/* Facilities */}

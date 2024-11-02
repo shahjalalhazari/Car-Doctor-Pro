@@ -5,10 +5,11 @@ import DetailsSection from "@/components/ServiceDetailsPage/DetailsSection";
 import DownloadSection from "@/components/ServiceDetailsPage/DownloadSection";
 import ServicesList from "@/components/ServiceDetailsPage/ServicesList";
 import ContactSection from "@/components/ServiceDetailsPage/ContactSection";
+import PriceSection from "@/components/ServiceDetailsPage/PriceSection";
 
 const ServiceDetailsPage = async ({ params }) => {
   const { service } = await getServiceDetails(params.id);
-  const { description } = service;
+  const { description, price } = service;
 
   return (
     <div className="lg:mt-10">
@@ -82,7 +83,10 @@ const ServiceDetailsPage = async ({ params }) => {
           <DownloadSection />
 
           {/* Contact Section */}
-          <ContactSection/>
+          <ContactSection />
+          
+          {/* Price Section */}
+          <PriceSection price={price}/>
         </div>
       </div>
     </div>
