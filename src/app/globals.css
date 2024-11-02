@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.bg-primary-opacity-50 {
+    @apply bg-primary w-20 h-20 mx-auto rounded-full text-white flex items-center justify-center;
+    outline: 20px solid rgba(255, 56, 17, 0.2);
+}
