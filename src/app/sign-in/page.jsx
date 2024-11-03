@@ -12,12 +12,12 @@ const SignInPage = () => {
         height="502"
         className="mx-auto"
       />
-      <div className="border border-paragraph rounded-xl px-10 py-8 lg:px-[75px] lg:py-[50px]">
+      <div className="border bg-[#f3f3f3] border-primary rounded-[10px] px-10 py-8 lg:px-[75px] lg:py-[50px]">
         <h3 className="font-semibold text-secondary text-[40px] text-center">
           Sign In
         </h3>
         {/* SignIn Form */}
-        <SignInForm/>
+        <SignInForm />
 
         {/* Social SignUp Buttons */}
         <SocialSignUpSection

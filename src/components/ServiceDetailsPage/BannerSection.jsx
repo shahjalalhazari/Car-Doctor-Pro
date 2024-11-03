@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const BannerSection = ({ service }) => {
-  const { title, img, price, description, facility } = service;
+  const { title, img } = service;
 
   return (
     <div className="h-[300px] relative">

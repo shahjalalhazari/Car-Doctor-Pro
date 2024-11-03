@@ -9,7 +9,6 @@ import PriceSection from "@/components/ServiceDetailsPage/PriceSection";
 
 const ServiceDetailsPage = async ({ params }) => {
   const { service } = await getServiceDetails(params.id);
-  const { description, price } = service;
 
   return (
     <div className="lg:mt-10">
@@ -27,7 +26,7 @@ const ServiceDetailsPage = async ({ params }) => {
           <h3 className="text-4xl font-bold mt-12">
             3 Simple Steps to Process
           </h3>
-          <p className="text-paragraph text-justify mt-7">{description}</p>
+          <p className="text-paragraph text-justify mt-7">{service.description}</p>
 
           <div className="grid lg:grid-cols-3 gap-6 mt-8">
             {/* step 01 */}
@@ -84,9 +83,9 @@ const ServiceDetailsPage = async ({ params }) => {
 
           {/* Contact Section */}
           <ContactSection />
-          
+
           {/* Price Section */}
-          <PriceSection price={price}/>
+          <PriceSection service={service} />
         </div>
       </div>
     </div>

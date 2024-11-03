@@ -13,7 +13,7 @@ const InputField = ({ label, name, type, placeholder }) => {
         name={name}
         type={type}
         placeholder={placeholder}
-        className="input input-bordered w-full"
+        className="input w-full"
         required
       />
     </label>
