@@ -1,7 +1,9 @@
+import { getServiceDetails } from "@/lib/getService";
 import PageBanner from "@/components/shared/PageBanner";
-import BookingForm from "./BookingForm";
+import BookingForm from "@/components/BookingPage/BookingForm";
 
-const BookingPage = () => {
+const BookingPage = async ({ params }) => {
+  const service  = await getServiceDetails(params.id);
   const content = {
     title: "Booking",
   };
@@ -12,7 +14,7 @@ const BookingPage = () => {
 
       {/* Checkout Form */}
       <div className="bg-[#f3f3f3] rounded-[10px] my-32">
-        <BookingForm/>
+        <BookingForm  service={service}/>
       </div>
     </div>
   );

@@ -27,19 +27,19 @@ const SocialSignUpSection = ({ text, link, linkText }) => {
       <div className="flex gap-4 justify-center text-2xl">
         <button
           onClick={() => socialSignUpHandler("google")}
-          className="bg-[#f5f5f5] p-4 rounded-full"
+          className="bg-white p-4 rounded-full"
         >
           <FcGoogle />
         </button>
         <button
           onClick={() => socialSignUpHandler("facebook")}
-          className="bg-[#f5f5f5] text-[#3b5998] p-4 rounded-full"
+          className="bg-white text-[#3b5998] p-4 rounded-full"
         >
           <FaFacebookF />
         </button>
         <button
           onClick={() => socialSignUpHandler("linkedin")}
-          className="bg-[#f5f5f5] text-[#0a66c2] p-4 rounded-full"
+          className="bg-white text-[#0a66c2] p-4 rounded-full"
         >
           <FaLinkedinIn />
         </button>
