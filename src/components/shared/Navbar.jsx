@@ -100,7 +100,7 @@ const Navbar = () => {
             >
               <li>
                 {/* REPLACE */}
-                <Link href="/">Profile</Link>
+                <Link href="/my-bookings">My Bookings</Link>
               </li>
               <li>
                 <button onClick={() => signOut()}>Sign Out</button>
