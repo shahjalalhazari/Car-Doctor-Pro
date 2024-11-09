@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { FaPen, FaTrash } from "react-icons/fa";
 import PageBanner from "@/components/shared/PageBanner";
@@ -9,24 +9,41 @@ const MyBookingsPage = () => {
   const content = { title: "Booking" };
 
   const { data: session, status } = useSession();
-  console.log(session);
   const [bookings, setBookings] = useState([]);
+  console.log(bookings);
 
-  const loadData = useCallback(async () => {
+  // get / load all the bookings
+  const loadData = async () => {
     if (session?.user?.email) {
       const res = await fetch(
         `http://localhost:3000/my-bookings/api/${session?.user?.email}`
       );
-      const bookings = await res.json();
-      setBookings(bookings);
+      const data = await res.json();
+      setBookings(data);
     }
-  }, [session?.user?.email]);
+  };
+
+  // Delete The Booking
+  const bookingDeleteHandler = async (id) => {
+    const deleted = await fetch(
+      `http://localhost:3000/my-bookings/api/delete-booking/${id}`,
+      {
+        method: "delete",
+      }
+    );
+    const res = await deleted.json();
+    console.log(res);
+
+    if (res.response?.deletedCount > 0) {
+      loadData();
+    }
+  };
 
   useEffect(() => {
     if (status === "authenticated") {
       loadData();
     }
-  }, [loadData, status]);
+  }, [status]);
 
   return (
     <div className="lg:mt-10">
@@ -63,7 +80,10 @@ const MyBookingsPage = () => {
                   <button className="btn btn-warning">
                     <FaPen />
                   </button>
-                  <button className="btn btn-error">
+                  <button
+                    onClick={() => bookingDeleteHandler(booking._id)}
+                    className="btn btn-error"
+                  >
                     <FaTrash />
                   </button>
                 </td>
