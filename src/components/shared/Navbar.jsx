@@ -99,7 +99,6 @@ const Navbar = () => {
               className="dropdown-content menu bg-base-100 z-[1] w-52 border-primary border p-2 shadow"
             >
               <li>
-                {/* REPLACE */}
                 <Link href="/my-bookings">My Bookings</Link>
               </li>
               <li>
