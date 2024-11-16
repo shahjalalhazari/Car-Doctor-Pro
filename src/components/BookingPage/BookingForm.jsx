@@ -1,16 +1,13 @@
 "use client";
 
-import toast, { Toaster } from "react-hot-toast";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 import BookingInput from "@/components/BookingPage/BookingInput";
 import FullWidthBtn from "@/components/shared/FullWidthBtn";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
 
 const BookingForm = ({ service }) => {
   const { data } = useSession();
-  const { title } = service.service;
-
-  const [successBooking, setSuccessBooking] = useState(false);
+  const { title, _id } = service.service;
 
   const now = new Date();
   // Format date as YYYY-MM-DD
@@ -34,28 +31,22 @@ const BookingForm = ({ service }) => {
       message: form.message.value,
       ...service,
     };
-    console.log(newBooking);
 
-    const res = await fetch(
-      "http://localhost:3000/booking/api/635b5ba51dafe382a9da8c9a",
-      {
-        method: "POST",
-        body: JSON.stringify(newBooking),
-        headers: {
-          "content-type": "application/json",
-        },
-      }
-    );
-    console.log(res);
+    const res = await fetch(`http://localhost:3000/booking/api/`, {
+      method: "POST",
+      body: JSON.stringify(newBooking),
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+
     if (res.status === 200) {
       form.reset();
-      setSuccessBooking(true);
-      toast.success("Booking Success!");
+      toast.success("Service Booked Successfully!");
     }
   };
   return (
     <form onSubmit={bookingHandler} className="p-24 space-y-6">
-      {successBooking && <Toaster />}
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Name Field */}
         <BookingInput
