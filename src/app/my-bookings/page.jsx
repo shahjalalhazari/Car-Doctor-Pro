@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { FaPen, FaTrash } from "react-icons/fa";
 import PageBanner from "@/components/shared/PageBanner";
+import { toast } from "react-toastify";
 
 const MyBookingsPage = () => {
   const content = { title: "Booking" };
@@ -25,17 +26,37 @@ const MyBookingsPage = () => {
 
   // Delete The Booking
   const bookingDeleteHandler = async (id) => {
-    const deleted = await fetch(
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this booking?"
+    );
+    if (!confirmDelete) return;
+
+    const deleted = fetch(
       `http://localhost:3000/my-bookings/api/delete-booking/${id}`,
       {
-        method: "delete",
+        method: "DELETE",
       }
-    );
-    const res = await deleted.json();
-    console.log(res);
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.response?.deletedCount > 0) {
+          loadData();
+          return "Booking deleted successfully!";
+        } else {
+          throw new Error("Failed to delete booking.");
+        }
+      });
 
-    if (res.response?.deletedCount > 0) {
-      loadData();
+    toast.promise(deleted, {
+      pending: "Deleting booking...",
+      success: "Booking deleted successfully!",
+      error: "Error deleting booking.",
+    });
+
+    try {
+      await deleted;
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
 

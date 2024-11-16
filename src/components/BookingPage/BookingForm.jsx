@@ -32,19 +32,37 @@ const BookingForm = ({ service }) => {
       ...service,
     };
 
-    const res = await fetch(`http://localhost:3000/booking/api/`, {
+    // Define the booking promise
+    const addBooking = fetch(`http://localhost:3000/booking/api/`, {
       method: "POST",
       body: JSON.stringify(newBooking),
       headers: {
         "content-type": "application/json",
       },
+    }).then(async (res) => {
+      if (res.status === 200) {
+        form.reset();
+        return "Service booked successfully!";
+      } else {
+        const errorData = await res.json();
+        throw new Error(errorData?.message || "Failed to book service.");
+      }
     });
 
-    if (res.status === 200) {
-      form.reset();
-      toast.success("Service Booked Successfully!");
+    // Use toast.promise for notifications
+    toast.promise(addBooking, {
+      pending: "Booking your service...",
+      success: "Service booked successfully!",
+      error: "Failed to book the service.",
+    });
+
+    try {
+      await addBooking; // Wait for the promise to resolve or reject
+    } catch (error) {
+      console.error("Booking error:", error);
     }
   };
+
   return (
     <form onSubmit={bookingHandler} className="p-24 space-y-6">
       <div className="grid lg:grid-cols-2 gap-6">
