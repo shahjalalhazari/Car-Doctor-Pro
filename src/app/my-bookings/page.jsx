@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { FaPen, FaTrash } from "react-icons/fa";
 import PageBanner from "@/components/shared/PageBanner";
@@ -11,10 +11,9 @@ const MyBookingsPage = () => {
 
   const { data: session, status } = useSession();
   const [bookings, setBookings] = useState([]);
-  console.log(bookings);
 
   // get / load all the bookings
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     if (session?.user?.email) {
       const res = await fetch(
         `http://localhost:3000/my-bookings/api/${session?.user?.email}`
@@ -22,7 +21,7 @@ const MyBookingsPage = () => {
       const data = await res.json();
       setBookings(data);
     }
-  };
+  }, [session?.user?.email]);
 
   // Delete The Booking
   const bookingDeleteHandler = async (id) => {
@@ -32,7 +31,7 @@ const MyBookingsPage = () => {
     if (!confirmDelete) return;
 
     const deleted = fetch(
-      `http://localhost:3000/my-bookings/api/delete-booking/${id}`,
+      `http://localhost:3000/my-bookings/api/booking/${id}`,
       {
         method: "DELETE",
       }
@@ -64,7 +63,7 @@ const MyBookingsPage = () => {
     if (status === "authenticated") {
       loadData();
     }
-  }, [status]);
+  }, [loadData, status]);
 
   return (
     <div className="lg:mt-10">
