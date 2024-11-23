@@ -34,12 +34,9 @@ const handler = NextAuth({
 
                 // match submitted login password with current user password
                 const matchPassword = await bcrypt.compare(password, currentUser.password);
-                if (!matchPassword) {
-                    return null;
-                }
-
+                
                 // finally return the user.
-                return currentUser;
+                return matchPassword ? currentUser : null;
             }
         }),
 
@@ -61,7 +58,7 @@ const handler = NextAuth({
             clientSecret: process.env.NEXT_AUTH_LINKEDIN_CLIENT_SECRET,
             authorization: {
                 params: {
-                    scope: "openid profile email"
+                    scope: "r_liteprofile r_emailaddress"
                 },
             },
         })
@@ -80,26 +77,37 @@ const handler = NextAuth({
                     const userCollection = db.collection("users");
                     const userExists = await userCollection.findOne({email});
                     if (!userExists) {
-                        await userCollection.insertOne(user);
-                        return user;
-                    } else {
-                        return user;
+                        await userCollection.insertOne({
+                            email: user.email,
+                            name: user.name || "User",
+                            provider: account.provider,
+                            createdAt: new Date(),
+                        });
                     }
+                    return user;
                 } catch (error) {
-                    console.log(error)
+                    console.error("Error in signIn callback:", error);
+            return false;
                 }
-            } else {
-                return user;
             }
+            return true;
         },
 
-        // async jwt({ token, account, profile }) {
-        //     if (account?.provider === "linkedin") {
-        //     token.email = profile.email;  // Save LinkedIn email to token
-        //     token.name = profile.name;    // Save LinkedIn name to token
-        //     }
-        //     return token;
-        // }
+        async jwt({ token, user, account }) {
+            if (user) {
+                token.id = user._id || null;
+                token.email = user.email;
+                token.name = user.name;
+                token.provider = account?.provider || "credentials";
+            }
+            return token;
+        },
+
+        async session({ session, token }) {
+            session.user.id = token.id;
+            session.user.provider = token.provider;
+            return session;
+        },
     }
 });
 

@@ -4,21 +4,23 @@ import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 const SocialSignUpSection = ({ text, link, linkText }) => {
-  const router = useRouter();
-  const { status } = useSession();
+  const searchParams = useSearchParams();
+  const path = searchParams.get("redirect") || "/";
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/");
+  const socialSignUpHandler = async (provider) => {
+    try {
+      await signIn(provider, {
+        redirect: true,
+        callbackUrl: path,
+      });
+    } catch (error) {
+      console.error(`Error signing in with ${provider}:`, error);
+      alert("An error occurred while signing in. Please try again.");
     }
-  }, [router, status]);
-
-  const socialSignUpHandler = (provider) => {
-    signIn(provider, { redirect: false });
   };
 
   return (
@@ -28,18 +30,21 @@ const SocialSignUpSection = ({ text, link, linkText }) => {
         <button
           onClick={() => socialSignUpHandler("google")}
           className="bg-white p-4 rounded-full"
+          aria-label="Sign in with Google"
         >
           <FcGoogle />
         </button>
         <button
           onClick={() => socialSignUpHandler("facebook")}
           className="bg-white text-[#3b5998] p-4 rounded-full"
+          aria-label="Sign in with Facebook"
         >
           <FaFacebookF />
         </button>
         <button
           onClick={() => socialSignUpHandler("linkedin")}
           className="bg-white text-[#0a66c2] p-4 rounded-full"
+          aria-label="Sign in with LinkedIn"
         >
           <FaLinkedinIn />
         </button>

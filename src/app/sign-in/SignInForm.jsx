@@ -3,10 +3,11 @@
 import { signIn } from "next-auth/react";
 import InputField from "@/components/Authentication/InputField";
 import FullWidthBtn from "@/components/shared/FullWidthBtn";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const SignInForm = () => {
-  const route = useRouter();
+  const searchParams = useSearchParams();
+  const path = searchParams.get("redirect") || "/";
 
   const signInHandler = async (event) => {
     event.preventDefault();
@@ -14,14 +15,12 @@ const SignInForm = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    const res = await signIn("credentials", {
+    await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      redirect: true,
+      callbackUrl: path,
     });
-    if (res.status === 200) {
-      route.push("/");
-    }
   };
   return (
     <form onSubmit={signInHandler} className="mt-10 space-y-6">
