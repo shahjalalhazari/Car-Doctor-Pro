@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import FullWidthBtn from "@/components/shared/FullWidthBtn";
 import PageBanner from "@/components/shared/PageBanner";
 import { toast } from "react-toastify";
+import BookingInput from "@/components/BookingPage/BookingInput";
 
 const UpdateBookingPage = ({ params }) => {
   const content = {
@@ -90,55 +91,30 @@ const UpdateBookingPage = ({ params }) => {
           <form onSubmit={UpdateBookingHandler} className="p-24 space-y-6">
             <div className="grid lg:grid-cols-2 gap-6">
               {/* Phone Number Field */}
-              <label className="form-control w-full">
-                <label
-                  htmlFor="number"
-                  className="font-semibold text-lg mb-2 text-secondary"
-                >
-                  Phone Number
-                  {/* {bookingDetail.name} */}
-                </label>
-                <input
-                  name="number"
-                  type="text"
-                  className="input w-full"
-                  required
-                  defaultValue={bookingDetail?.number}
-                />
-              </label>
+              <BookingInput
+                name="number"
+                type="text"
+                label="Phone Number"
+                placeholder=""
+                defaultValue={bookingDetail?.number}
+              />
               {/* Date Field */}
-              <label className="form-control w-full">
-                <label
-                  htmlFor="date"
-                  className="font-semibold text-lg mb-2 text-secondary"
-                >
-                  Choose Your Date
-                </label>
-                <input
-                  name="date"
-                  type="date"
-                  className="input w-full"
-                  required
-                  defaultValue={bookingDetail?.date}
-                />
-              </label>
+              <BookingInput
+                name="date"
+                type="date"
+                label="Choose Your Date"
+                placeholder=""
+                defaultValue={bookingDetail?.date}
+              />
 
               {/* Time Field */}
-              <label className="form-control w-full">
-                <label
-                  htmlFor="time"
-                  className="font-semibold text-lg mb-2 text-secondary"
-                >
-                  Choose Your Time
-                </label>
-                <input
-                  name="time"
-                  type="time"
-                  className="input w-full"
-                  required
-                  defaultValue={bookingDetail?.time}
-                />
-              </label>
+              <BookingInput
+                name="time"
+                type="time"
+                label="Pick Your Time"
+                placeholder=""
+                defaultValue={bookingDetail?.time}
+              />
 
               {/* Message Field */}
               <label className="form-control w-full">
