@@ -10,7 +10,7 @@ export const GET = async (request, { params }) => {
     try {
         const res = await bookingsCollection.findOne({_id: new ObjectId(params.id)});
         return Response.json({
-            "message": "Booking Found!", response: res
+            "message": "Booking Found!", res: res
         }, { status: 200 })
     } catch(error){
         console.log(error)
@@ -38,7 +38,7 @@ export const DELETE = async(request, {params}) => {
 
 // update single booking
 export const PATCH = async (request, { params }) => {
-    const {number, date, time, message} = await request.json();
+    const updateDoc = await request.json();
     const db = await connectDB();
     const bookingsCollection = db.collection("bookings");
 
@@ -47,13 +47,13 @@ export const PATCH = async (request, { params }) => {
             { _id: new ObjectId(params.id) },
             {
                 $set: {
-                    number, date, time, message
+                    ...updateDoc
                 }
             },
             { upsert: true }
         );
         return Response.json({
-            "message": "Booking Updated Successfully!", response: res
+            "message": "Booking Updated Successfully!", res: res
         }, { status: 200 })
     } catch(error){
         console.log(error)

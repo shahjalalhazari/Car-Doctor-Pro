@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { FaPen, FaTrash } from "react-icons/fa";
 import PageBanner from "@/components/shared/PageBanner";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 const MyBookingsPage = () => {
   const content = { title: "Booking" };
@@ -97,9 +98,11 @@ const MyBookingsPage = () => {
                   <button className="btn btn-info">See Details</button>
                 </td>
                 <td className="flex gap-2 items-center justify-center">
-                  <button className="btn btn-warning">
-                    <FaPen />
-                  </button>
+                  <Link href={`my-bookings/update-booking/${booking._id}`}>
+                    <button className="btn btn-warning">
+                      <FaPen />
+                    </button>
+                  </Link>
                   <button
                     onClick={() => bookingDeleteHandler(booking._id)}
                     className="btn btn-error"
