@@ -18,12 +18,12 @@ const UpdateBookingPage = ({ params }) => {
   const getBookingDetail = useCallback(async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/my-bookings/api/booking/${params.id}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/my-bookings/api/booking/${params.id}`
       );
       const data = await res.json();
       setBookingDetail(data.res);
     } catch (error) {
-      console.error("Error on fetching booking details", error);
+      toast.error("Error on fetching booking details", error);
     } finally {
       setLoading(false);
     }
@@ -48,7 +48,7 @@ const UpdateBookingPage = ({ params }) => {
     try {
       await toast.promise(
         fetch(
-          `http://localhost:3000/my-bookings/api/booking/${bookingDetail._id}`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/my-bookings/api/booking/${bookingDetail._id}`,
           {
             method: "PATCH",
             body: JSON.stringify(updatedDetails),
@@ -70,7 +70,7 @@ const UpdateBookingPage = ({ params }) => {
         }
       );
     } catch (error) {
-      console.error("Update booking error:", error);
+      toast.error("Update booking error:", error);
     }
   };
 

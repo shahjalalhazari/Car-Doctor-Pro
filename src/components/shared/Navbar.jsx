@@ -9,7 +9,6 @@ import PrimaryBtn from "./PrimaryBtn";
 
 const Navbar = () => {
   const session = useSession();
-  // console.log(session);
 
   return (
     <div className="flex justify-between items-center font-semibold">

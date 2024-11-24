@@ -1,5 +1,6 @@
 import { connectDB } from "@/lib/connectDB";
 import bcrypt from "bcrypt";
+import { NextResponse } from "next/server";
 
 
 export const POST = async (request) => {
@@ -11,7 +12,7 @@ export const POST = async (request) => {
         const userExists = await userCollection.findOne({ email: newUser.email });
 
         if (userExists) {
-            return new Response(
+            return new NextResponse(
                 JSON.stringify({ message: "User Already Exists" }),
                 { status: 409, headers: { "Content-Type": "application/json" } }
             );
@@ -23,12 +24,12 @@ export const POST = async (request) => {
             ...newUser, 
             password: hashPassword
         });
-        return new Response(
+        return new NextResponse(
             JSON.stringify({ message: "User Created Successfully!" }),
             { status: 201, headers: { "Content-Type": "application/json" } }
         );
     } catch (error) {
-        return new Response(
+        return new NextResponse(
             JSON.stringify({ message: "Something went wrong", error: error.message }),
             { status: 500, headers: { "Content-Type": "application/json" } }
         );

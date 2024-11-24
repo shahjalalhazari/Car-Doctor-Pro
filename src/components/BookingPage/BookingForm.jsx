@@ -33,13 +33,16 @@ const BookingForm = ({ service }) => {
     };
 
     // Define the booking promise
-    const addBooking = fetch(`http://localhost:3000/booking/api/`, {
-      method: "POST",
-      body: JSON.stringify(newBooking),
-      headers: {
-        "content-type": "application/json",
-      },
-    }).then(async (res) => {
+    const addBooking = fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/booking/api/`,
+      {
+        method: "POST",
+        body: JSON.stringify(newBooking),
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    ).then(async (res) => {
       if (res.status === 200) {
         form.reset();
         return "Service booked successfully!";
@@ -59,7 +62,7 @@ const BookingForm = ({ service }) => {
     try {
       await addBooking; // Wait for the promise to resolve or reject
     } catch (error) {
-      console.error("Booking error:", error);
+      toast.error("Failed to book the service.", error);
     }
   };
 

@@ -6,6 +6,7 @@ import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const SocialSignUpSection = ({ text, link, linkText }) => {
   const searchParams = useSearchParams();
@@ -18,7 +19,7 @@ const SocialSignUpSection = ({ text, link, linkText }) => {
         callbackUrl: path,
       });
     } catch (error) {
-      console.error(`Error signing in with ${provider}:`, error);
+      toast.error(`Error signing in with ${provider}:`, error);
       alert("An error occurred while signing in. Please try again.");
     }
   };

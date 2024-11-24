@@ -31,13 +31,16 @@ const SignUpForm = () => {
 
     // send POST request to server with user details
     try {
-      const resp = await fetch("http://localhost:3000/sign-up/api", {
-        method: "POST",
-        body: JSON.stringify(newUser),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const resp = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/sign-up/api`,
+        {
+          method: "POST",
+          body: JSON.stringify(newUser),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!resp.ok) {
         const errorData = await resp.json();
@@ -49,7 +52,7 @@ const SignUpForm = () => {
       setLoading(false);
       router.push("/sign-in");
     } catch (error) {
-      console.error("Error:", error);
+      toast.error("Error:", error);
       setError("Something went wrong. Please try again later.");
     }
   };

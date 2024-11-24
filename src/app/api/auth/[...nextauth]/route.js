@@ -7,7 +7,7 @@ import LinkedInProvider from "next-auth/providers/linkedin"
 import { connectDB } from "@/lib/connectDB";
 
 const handler = NextAuth({
-    secret: process.env.NEXT_AUTH_SECRET,
+    secret: process.env.NEXT_PUBLIC_AUTH_SECRET,
     session: {
         strategy: "jwt",
         maxAge: 30 * 24 * 60 * 60  // days * hours * minutes * seconds
@@ -42,20 +42,20 @@ const handler = NextAuth({
 
         // sign in/up with google account
         GoogleProvider({
-            clientId: process.env.NEXT_AUTH_GOOGLE_CLIENT_ID,
-            clientSecret: process.env.NEXT_AUTH_GOOGLE_CLIENT_SECRET
+            clientId: process.env.NEXT_PUBLIC_AUTH_GOOGLE_CLIENT_ID,
+            clientSecret: process.env.NEXT_PUBLIC_AUTH_GOOGLE_CLIENT_SECRET
         }),
 
         // sign in with facebook
         FacebookProvider({
-            clientId: process.env.NEXT_AUTH_FACEBOOK_CLIENT_ID,
-            clientSecret: process.env.NEXT_AUTH_FACEBOOK_CLIENT_SECRET
+            clientId: process.env.NEXT_PUBLIC_AUTH_FACEBOOK_CLIENT_ID,
+            clientSecret: process.env.NEXT_PUBLIC_AUTH_FACEBOOK_CLIENT_SECRET
         }),
 
         // sign in with Linkedin
         LinkedInProvider({
-            clientId: process.env.NEXT_AUTH_LINKEDIN_CLIENT_ID,
-            clientSecret: process.env.NEXT_AUTH_LINKEDIN_CLIENT_SECRET,
+            clientId: process.env.NEXT_PUBLIC_AUTH_LINKEDIN_CLIENT_ID,
+            clientSecret: process.env.NEXT_PUBLIC_AUTH_LINKEDIN_CLIENT_SECRET,
             authorization: {
                 params: {
                     scope: "r_liteprofile r_emailaddress"

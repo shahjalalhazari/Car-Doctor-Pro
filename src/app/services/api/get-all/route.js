@@ -1,4 +1,5 @@
 import { connectDB } from "@/lib/connectDB"
+import { NextResponse } from "next/server";
 
 export const GET = async () => {
     const db = await connectDB();
@@ -6,8 +7,8 @@ export const GET = async () => {
 
     try {
         const services = await servicesCollection.find().toArray();
-        return Response.json({services})
+        return NextResponse.json({services}, {status:200})
     } catch (error) {
-        console.log(error);
+        return NextResponse.json({"message":{error}}, {status: 400})
     }
 }

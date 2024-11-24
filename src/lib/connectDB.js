@@ -6,9 +6,7 @@ export const connectDB = async () => {
     if (db) return db;
 
     try {
-        const username = process.env.NEXT_MONGODB_USERNAME;
-        const password = process.env.NEXT_MONGODB_PASSWORD;
-        const uri = `mongodb+srv://${username}:${password}@cluster0.cp5mulo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+        const uri = process.env.NEXT_PUBLIC_MONGODB_URI;
 
         // create client
         const client = new MongoClient(uri, {

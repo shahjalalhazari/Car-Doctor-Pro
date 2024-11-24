@@ -17,7 +17,7 @@ const MyBookingsPage = () => {
   const loadData = useCallback(async () => {
     if (session?.user?.email) {
       const res = await fetch(
-        `http://localhost:3000/my-bookings/api/${session?.user?.email}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/my-bookings/api/${session?.user?.email}`
       );
       const data = await res.json();
       setBookings(data);
@@ -32,7 +32,7 @@ const MyBookingsPage = () => {
     if (!confirmDelete) return;
 
     const deleted = fetch(
-      `http://localhost:3000/my-bookings/api/booking/${id}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/my-bookings/api/booking/${id}`,
       {
         method: "DELETE",
       }
@@ -56,7 +56,7 @@ const MyBookingsPage = () => {
     try {
       await deleted;
     } catch (error) {
-      console.error("Error:", error);
+      toast.error("Error:", error);
     }
   };
 
