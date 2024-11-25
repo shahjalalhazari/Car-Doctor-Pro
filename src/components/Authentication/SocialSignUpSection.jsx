@@ -1,30 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { Suspense } from "react";
 
-const SocialSignUpSection = ({ text, link, linkText }) => {
-  const searchParams = useSearchParams();
-  const path = searchParams.get("redirect") || "/";
-
+const SocialSignUpSection = ({ redirectPath, text, link, linkText }) => {
   const socialSignUpHandler = async (provider) => {
     try {
       await signIn(provider, {
         redirect: true,
-        callbackUrl: path,
+        callbackUrl: redirectPath,
       });
     } catch (error) {
-      toast.error(`Error signing in with ${provider}:`, error);
-      alert("An error occurred while signing in. Please try again.");
+      console.error(`Error signing in with ${provider}:`, error);
+      toast.error(`Failed to sign in with ${provider}. Please try again.`);
     }
   };
 
   return (
+    // <Suspense
+    //   fallback={<span className="loading loading-dots loading-md"></span>}
+    // >
     <div className="text-center mt-7 space-y-7">
       <p className="text-lg font-medium text-secondary">Or Sign Up with</p>
       <div className="flex gap-4 justify-center text-2xl">
@@ -51,13 +50,13 @@ const SocialSignUpSection = ({ text, link, linkText }) => {
         </button>
       </div>
       <p className="text-lg text-secondary">
-        {text}
-        {/* REPLACE */}
+        {text}{" "}
         <Link href={link} className="text-lg font-bold text-primary">
           {linkText}
         </Link>
       </p>
     </div>
+    // </Suspense>
   );
 };
 
