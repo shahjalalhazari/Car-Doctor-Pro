@@ -83,7 +83,7 @@ const Navbar = () => {
           <PrimaryOutlineBtn text="Appointment" />
         </Link>
 
-        {session.status === "authenticated" ? (
+        {session?.status === "authenticated" ? (
           <div className="dropdown dropdown-hover dropdown-end">
             <div
               tabIndex={0}
@@ -91,7 +91,7 @@ const Navbar = () => {
               className="px-8 py-4
             rounded-md bg-primary text-white flex items-center gap-2"
             >
-              {session.data.user.name} <BsCaretDownFill />
+              {session?.data.user.name} <BsCaretDownFill />
             </div>
             <ul
               tabIndex={0}

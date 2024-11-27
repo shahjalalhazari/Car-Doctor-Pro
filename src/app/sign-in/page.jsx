@@ -64,8 +64,8 @@ const SignInPage = () => {
   };
 
   const SearchParamsWrapper = () => {
-    const { get: getSearchParam } = useSearchParams();
-    const path = getSearchParam("redirect") || "/";
+    const searchParams = useSearchParams();
+    const path = searchParams?.get("redirect") || "/"; // Use optional chaining
 
     return (
       <>
