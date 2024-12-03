@@ -6,8 +6,15 @@ import FacebookProvider from "next-auth/providers/facebook"
 import LinkedInProvider from "next-auth/providers/linkedin"
 import { connectDB } from "@/lib/connectDB";
 
+const options = {
+    cookies: {
+        sessionToken: "__Secure-next-auth.session-token",
+        secure: process.env.NODE_ENV === "production", // Only secure in production
+    },
+};
+
 const handler = NextAuth({
-    secret: process.env.NEXT_PUBLIC_AUTH_SECRET,
+    secret: process.env.NEXTAUTH_SECRET,
     session: {
         strategy: "jwt",
         maxAge: 30 * 24 * 60 * 60  // days * hours * minutes * seconds
@@ -63,6 +70,20 @@ const handler = NextAuth({
             },
         })
     ],
+
+    cookies: {
+    sessionToken: {
+        name: process.env.NODE_ENV === "production"
+            ? "__Secure-next-auth.session-token"
+            : "next-auth.session-token", // Adjust cookie name based on environment
+        options: {
+            httpOnly: true,
+            sameSite: "lax",
+            secure: process.env.NODE_ENV === "production", // Secure in production
+        },
+    },
+    },
+    
     pages: {
         signIn: "/sign-in"
     },
